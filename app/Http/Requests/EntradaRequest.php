@@ -24,13 +24,13 @@ class EntradaRequest extends FormRequest
         switch ($this->method()) {
             case 'POST':
                 return [
-                    'vehiculo_id' => 'required|exists:vehiculo,id',
+                    'vehiculo_id' => 'required|exists:vehiculos,id',
                     'fecha' => 'required|date_format:Y-m-d',
                 ];
             case 'PUT':
             case 'PATCH':
                 return [
-                    'vehiculo_id' => 'required|exists:vehiculo,id',
+                    'vehiculo_id' => 'required|exists:vehiculos,id',
                     'fecha' => 'required|date_format:Y-m-d',
                 ];
             default:

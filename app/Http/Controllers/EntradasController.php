@@ -27,9 +27,8 @@ class EntradasController extends Controller
      */
     public function create()
     {
-        $entrada = new Entrada();
         $vehiculos = Vehiculo::all();
-        return view('entrada.action', ['entrada' => $entrada, 'vehiculos' => $vehiculos]);
+        return view('entrada.create', compact('vehiculos'));
     }
 
     /**
@@ -38,52 +37,10 @@ class EntradasController extends Controller
     public function store(EntradaRequest $request)
     {
         $entrada = new Entrada;
-        $entrada->vehiculo_id = $request->input('vehiculo');
-        $entrada->fecha = now(); // Fecha actual
+        $entrada->vehiculo_id = $request->input('vehiculo_id');
+        $entrada->fecha = $request->input('fecha');
         $entrada->save();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Entrada creada satisfactoriamente'
-        ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        $entrada = Entrada::findOrFail($id);
-        $vehiculos = Vehiculo::all();
-        return view('entrada.action', compact('entrada', 'vehiculos'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(EntradaRequest $request, $id)
-    {
-        $entrada = Entrada::findOrFail($id);
-        $entrada->vehiculo_id = $request->input('vehiculo');
-        $entrada->save();
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Entrada actualizada satisfactoriamente'
-        ]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        $entrada = Entrada::findOrFail($id);
-        $entrada->delete();
-
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Entrada eliminada'
-        ]);
+        return redirect()->route('entrada.index')->with('success', 'Entrada creada satisfactoriamente');
     }
 }

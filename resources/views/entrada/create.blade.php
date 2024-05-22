@@ -1,26 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear entrada</title>
-</head>
-<body>
+<div class="modal-content">
     <form action="{{ route('entrada.store') }}" method="post">
         @csrf
-        <label for="vehiculo_id">Vehículo</label>
-        <select name="vehiculo_id" id="vehiculo_id">
-            <option value="">Selecciona un vehículo</option>
-            @foreach($vehiculos as $vehiculo)
-                <option value="{{ $vehiculo->id }}">{{ $vehiculo->placa }}</option>
-            @endforeach
-        </select>
-        
-        <label for="fecha">Fecha</label>
-        <input type="date" name="fecha" id="fecha" value="{{ now()->format('Y-m-d') }}">
-        
-        <input type="submit" value="Guardar">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-title">Crear Entrada</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="vehiculo_id">Vehículo</label>
+                <select name="vehiculo_id" class="form-control" id="vehiculo_id">
+                    <option value="">Selecciona un vehículo</option>
+                    @foreach($vehiculos as $vehiculo)
+                    <option value="{{ $vehiculo->id }}">{{ $vehiculo->placa }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="fecha">Fecha</label>
+                <input type="date" name="fecha" id="fecha" class="form-control" value="{{ old('fecha', now()->format('Y-m-d')) }}">
+            </div>
+        </div>
+        <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
     </form>
-</body>
-</html>
+</div>
